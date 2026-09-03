@@ -23,6 +23,30 @@ export interface ExtractRequestMessage {
   type: 'EXTRACT_ARTICLE';
 }
 
+// Side Panel → Background：发起流式翻译（经长连接 Port，design §4.3）
+export interface TranslateStreamRequest {
+  type: 'TRANSLATE_STREAM';
+  markdown: string;
+}
+
+// Background → Side Panel：流式翻译分片
+export interface TranslationChunkMessage {
+  type: 'TRANSLATION_CHUNK';
+  text: string;
+}
+
+// Background → Side Panel：翻译完成，text 为完整译文
+export interface TranslationDoneMessage {
+  type: 'TRANSLATION_DONE';
+  text: string;
+}
+
+// Background → Side Panel：翻译失败
+export interface TranslationErrorMessage {
+  type: 'TRANSLATION_ERROR';
+  error: string;
+}
+
 // 展示模式（design §4.2 / §5.2）
 export type DisplayMode = 'translation' | 'bilingual' | 'original';
 
