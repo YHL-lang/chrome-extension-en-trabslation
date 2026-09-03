@@ -420,6 +420,21 @@ button {
   background: var(--bg-inset);
 }
 
+.btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--brand);
+}
+
+.btn--ghost:hover {
+  background: var(--bg-subtle);
+  border-color: var(--border-strong);
+}
+
+.btn--ghost:active {
+  background: var(--bg-inset);
+}
+
 .btn__arrow {
   width: 16px;
   height: 16px;

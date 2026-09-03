@@ -102,7 +102,7 @@ export default function App() {
         {state === 'loading' && <LoadingView />}
         {state === 'translating' && <TranslatingView title={article?.title} preview={preview} />}
         {state === 'success' && result && (
-          <SuccessView result={result} initialMode={displayMode} />
+          <SuccessView result={result} initialMode={displayMode} onRestart={handleTranslate} />
         )}
         {state === 'error' && <ErrorView message={errorMessage} onRetry={handleTranslate} />}
       </main>

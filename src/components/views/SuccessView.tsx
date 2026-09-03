@@ -8,6 +8,7 @@ import { saveTranslationResult } from '@/lib/storage';
 interface SuccessViewProps {
   result: TranslationResult;
   initialMode?: DisplayMode;
+  onRestart: () => void;
 }
 
 const MODES: DisplayMode[] = ['translation', 'bilingual', 'original'];
@@ -36,7 +37,7 @@ function downloadMarkdown(filename: string, content: string): void {
   URL.revokeObjectURL(url);
 }
 
-export default function SuccessView({ result, initialMode = 'translation' }: SuccessViewProps) {
+export default function SuccessView({ result, initialMode = 'translation', onRestart }: SuccessViewProps) {
   const [mode, setMode] = useState<DisplayMode>(initialMode);
 
   useEffect(() => {
@@ -95,6 +96,9 @@ export default function SuccessView({ result, initialMode = 'translation' }: Suc
         </button>
         <button type="button" className="btn btn--primary" onClick={handleDownload}>
           下载 Markdown
+        </button>
+        <button type="button" className="btn btn--ghost" onClick={onRestart}>
+          重新翻译本页
         </button>
       </footer>
     </div>
