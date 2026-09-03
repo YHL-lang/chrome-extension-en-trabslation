@@ -2,8 +2,10 @@ export default function LoadingView() {
   return (
     <div className="view view--center">
       <span className="spinner" aria-hidden="true" />
-      <p className="view__title">加载中…</p>
-      <p className="view__desc">正在提取文章正文…</p>
+      <div className="view__copy">
+        <h2 className="view__title">正在提取文章</h2>
+        <p className="view__desc">正在识别页面正文内容…</p>
+      </div>
     </div>
   );
 }

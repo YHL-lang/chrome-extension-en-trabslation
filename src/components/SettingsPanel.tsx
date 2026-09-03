@@ -12,9 +12,19 @@ interface SettingsPanelProps {
 
 export default function SettingsPanel({ onBack }: SettingsPanelProps) {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
-    loadSettings().then(setSettings);
+    let active = true;
+    loadSettings().then((loaded) => {
+      if (!active) return;
+      setSettings(loaded);
+      setIsLoaded(true);
+    });
+    return () => {
+      active = false;
+    };
   }, []);
 
   const updateField = (patch: Partial<Settings>) => {
@@ -22,9 +32,19 @@ export default function SettingsPanel({ onBack }: SettingsPanelProps) {
   };
 
   const handleSave = async () => {
-    await saveSettings(settings);
-    onBack();
+    setIsSaving(true);
+    try {
+      await saveSettings(settings);
+      onBack();
+    } catch {
+      setIsSaving(false);
+    }
   };
+
+  // 当前存储的模型若不在预设列表，则动态补入，避免 select 显示空白
+  const modelOptions = MODEL_OPTIONS.includes(settings.model)
+    ? MODEL_OPTIONS
+    : [settings.model, ...MODEL_OPTIONS];
 
   return (
     <div className="settings">
@@ -45,7 +65,7 @@ export default function SettingsPanel({ onBack }: SettingsPanelProps) {
         <label className="field">
           <span className="field__label">模型</span>
           <select value={settings.model} onChange={(e) => updateField({ model: e.target.value })}>
-            {MODEL_OPTIONS.map((model) => (
+            {modelOptions.map((model) => (
               <option key={model} value={model}>
                 {model}
               </option>
@@ -95,8 +115,13 @@ export default function SettingsPanel({ onBack }: SettingsPanelProps) {
         </label>
       </div>
       <div className="settings__footer">
-        <button type="button" className="btn btn--primary" onClick={handleSave}>
-          保存设置
+        <button
+          type="button"
+          className="btn btn--primary btn--block"
+          onClick={handleSave}
+          disabled={!isLoaded || isSaving}
+        >
+          {isSaving ? '保存中…' : '保存设置'}
         </button>
       </div>
     </div>
