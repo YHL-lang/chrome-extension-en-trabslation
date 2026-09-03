@@ -133,6 +133,12 @@ body {
   color: #86909c;
 }
 
+.preview__text {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 .btn {
   border: none;
   border-radius: 8px;
