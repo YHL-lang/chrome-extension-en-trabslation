@@ -5,11 +5,21 @@ import SettingsPanel from '@/components/SettingsPanel';
 import EmptyView from '@/components/views/EmptyView';
 import LoadingView from '@/components/views/LoadingView';
 import TranslatingView from '@/components/views/TranslatingView';
+import SuccessView from '@/components/views/SuccessView';
 import ErrorView from '@/components/views/ErrorView';
 import { STATE_LABELS } from '@/lib/types';
-import type { AppState } from '@/lib/types';
+import type { AppState, TranslationResult } from '@/lib/types';
 
 const STATES: AppState[] = ['empty', 'loading', 'translating', 'success', 'error'];
+
+// 临时示例结果，用于预览成功态；T8 联调后替换为真实翻译结果
+const SAMPLE_RESULT: TranslationResult = {
+  title: '示例文章标题',
+  author: '作者名',
+  url: 'https://example.com/article',
+  original: '## Section\n\nHello world, this is the original text.',
+  translation: '## 章节\n\n你好，世界，这是译文内容。',
+};
 
 export default function App() {
   const [state, setState] = useState<AppState>('empty');
@@ -30,7 +40,7 @@ export default function App() {
         {state === 'empty' && <EmptyView onStart={() => setState('loading')} />}
         {state === 'loading' && <LoadingView />}
         {state === 'translating' && <TranslatingView />}
-        {state === 'success' && <p className="view__desc">成功态视图将在 T7 实现</p>}
+        {state === 'success' && <SuccessView result={SAMPLE_RESULT} />}
         {state === 'error' && <ErrorView onRetry={() => setState('loading')} />}
       </main>
       {/* 开发调试：切换查看各状态视图，T8 联调后移除 */}

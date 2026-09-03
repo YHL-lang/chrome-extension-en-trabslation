@@ -18,6 +18,15 @@ export interface ArticleData {
   markdown: string;
 }
 
+// 翻译结果（design §4.4）：结构化双语结果，供 SuccessView 渲染与持久化
+export interface TranslationResult {
+  title: string;
+  author: string;
+  url: string;
+  original: string; // 原文 Markdown
+  translation: string; // 译文 Markdown
+}
+
 // background 请求 content script 提取正文的消息
 export interface ExtractRequestMessage {
   type: 'EXTRACT_ARTICLE';
