@@ -22,3 +22,32 @@ export interface ArticleData {
 export interface ExtractRequestMessage {
   type: 'EXTRACT_ARTICLE';
 }
+
+// 展示模式（design §4.2 / §5.2）
+export type DisplayMode = 'translation' | 'bilingual' | 'original';
+
+export const DISPLAY_MODE_LABELS: Record<DisplayMode, string> = {
+  translation: '译文优先',
+  bilingual: '中英对照',
+  original: '仅原文',
+};
+
+// 设置项（design §4.2 可配置项）
+export interface Settings {
+  baseURL: string;
+  model: string;
+  apiKey: string;
+  prompt: string;
+  targetLanguage: string;
+  displayMode: DisplayMode;
+}
+
+export const DEFAULT_SETTINGS: Settings = {
+  baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+  model: 'qwen-plus',
+  apiKey: '',
+  prompt:
+    '请将以下 Markdown 文章正文翻译为中文，保留 Markdown 结构、标题层级与图片语法（![alt](src)）不被改写，只翻译正文内容。',
+  targetLanguage: '中文',
+  displayMode: 'translation',
+};
