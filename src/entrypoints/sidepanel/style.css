@@ -41,39 +41,132 @@ body {
 
 .app__body {
   flex: 1;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
   padding: 16px;
 }
 
-.app__state-label {
+.view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.view--center {
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.view--translating {
+  gap: 16px;
+}
+
+.view__heading {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e5e6eb;
+}
+
+.view__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 0;
+}
+
+.view__illustration {
+  width: 64px;
+  height: 64px;
+  color: #165dff;
+}
+
+.view__icon {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.view__title {
+  margin: 0;
   font-size: 16px;
+  font-weight: 600;
+}
+
+.view__desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
   color: #4e5969;
 }
 
-.app__switch {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e5e6eb;
+  border-top-color: #165dff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 }
 
-.app__switch button {
-  padding: 6px 12px;
-  border: 1px solid #d0d3d8;
-  border-radius: 6px;
-  background: #fff;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.preview {
+  border: 1px solid #e5e6eb;
+  border-radius: 8px;
+  padding: 12px;
+  background: #f7f8fa;
   font-size: 13px;
+  color: #4e5969;
+}
+
+.preview__placeholder {
+  margin: 0 0 8px;
+  color: #86909c;
+}
+
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 15px;
   cursor: pointer;
 }
 
-.app__switch button:disabled {
+.btn--primary {
+  width: 100%;
+  background: #165dff;
+  color: #fff;
+}
+
+.debug-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 16px;
+  border-top: 1px dashed #e5e6eb;
+}
+
+.debug-switch button {
+  padding: 4px 10px;
+  font-size: 12px;
+  border: 1px solid #d0d3d8;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.debug-switch button:disabled {
   color: #165dff;
   border-color: #165dff;
-  cursor: default;
 }
 
 .footer {
